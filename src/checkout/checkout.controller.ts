@@ -4,6 +4,9 @@ import {
   HttpStatus,
   HttpException,
   Body,
+  Get,
+  Param,
+  Headers,
 } from '@nestjs/common';
 import { CheckoutService } from './checkout.service';
 import { CreateCheckoutSessionDto } from './dto/create-checkout-session.dto';
@@ -33,5 +36,16 @@ export class CheckoutController {
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
+  }
+
+  @Get(':id')
+  async fetchOrderInfo(
+    @Param('id') id: string,
+    @Headers('authorization') authorizationHeader: string,
+  ) {
+    if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+    }
+    return this.checkoutService.getOrderInfo(id);
   }
 }

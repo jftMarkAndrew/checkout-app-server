@@ -34,4 +34,25 @@ export class CheckoutService {
       );
     }
   }
+
+  async getOrderInfo(orderId: string): Promise<any> {
+    const url = `${process.env.UNIPAAS_SANDBOX_URL}/pay-ins/${orderId}`;
+    const headers = {
+      accept: 'application/json',
+      authorization: `Bearer ${process.env.UNIPAAS_SANDBOX_PRIVATE_API_KEY}`,
+    };
+
+    try {
+      const response = await firstValueFrom(
+        this.httpService.get(url, { headers }),
+      );
+      return response.data;
+    } catch (error) {
+      console.error('Error when calling Unipaas:', error);
+      throw new HttpException(
+        'Failed to retrieve payment info',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
 }
