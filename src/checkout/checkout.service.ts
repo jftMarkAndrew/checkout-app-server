@@ -19,9 +19,6 @@ export class CheckoutService {
       'Content-Type': 'application/json',
       Accept: 'application/json',
     };
-    /* const body = {
-      disablePaymentMethods: { disableCard: false, disablePayByBank: false },
-    }; */
 
     try {
       const response = await firstValueFrom(
