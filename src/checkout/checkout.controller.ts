@@ -1,25 +1,37 @@
-import { Controller, Post, Res, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  HttpStatus,
+  HttpException,
+  Body,
+} from '@nestjs/common';
 import { CheckoutService } from './checkout.service';
-import { Response } from 'express';
+import { CreateCheckoutSessionDto } from './dto/create-checkout-session.dto';
 
 @Controller('checkout')
 export class CheckoutController {
-  constructor(private checkoutService: CheckoutService) {}
+  constructor(private readonly checkoutService: CheckoutService) {}
 
   @Post('session-token')
-  async getSessionToken(@Res() res: Response) {
+  async getSessionToken(
+    @Body() createCheckoutSessionDto: CreateCheckoutSessionDto,
+  ) {
     try {
-      const sessionData = await this.checkoutService.createCheckoutSession();
+      const sessionData = await this.checkoutService.createCheckoutSession(
+        createCheckoutSessionDto,
+      );
       if (!sessionData.sessionToken) {
-        return res
-          .status(HttpStatus.BAD_REQUEST)
-          .json({ message: 'Failed to retrieve session token' });
+        throw new HttpException(
+          'Failed to retrieve session token',
+          HttpStatus.BAD_REQUEST,
+        );
       }
-      return res.json({ sessionToken: sessionData.sessionToken });
+      return { sessionToken: sessionData.sessionToken };
     } catch (error) {
-      return res
-        .status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .json({ message: 'Internal server error' });
+      throw new HttpException(
+        'Internal server error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 }

@@ -2,6 +2,7 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
 import * as dotenv from 'dotenv';
+import { CreateCheckoutSessionDto } from './dto/create-checkout-session.dto';
 
 dotenv.config();
 
@@ -9,25 +10,24 @@ dotenv.config();
 export class CheckoutService {
   constructor(private httpService: HttpService) {}
 
-  async createCheckoutSession(): Promise<any> {
-    const url = 'https://sandbox.unipaas.com/platform/pay-ins/checkout';
+  async createCheckoutSession(
+    createCheckoutSessionDto: CreateCheckoutSessionDto,
+  ): Promise<any> {
+    const url = `${process.env.UNIPAAS_SANDBOX_URL}/pay-ins/checkout`;
     const headers = {
       Authorization: `Bearer ${process.env.UNIPAAS_SANDBOX_PRIVATE_API_KEY}`,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     };
-    const body = {
-      amount: 1000,
-      currency: 'GBP',
-      country: 'GB',
+    /* const body = {
       disablePaymentMethods: { disableCard: false, disablePayByBank: false },
-      email: 'jftmain@gmail.com',
-    };
+    }; */
 
     try {
       const response = await firstValueFrom(
-        this.httpService.post(url, body, { headers }),
+        this.httpService.post(url, createCheckoutSessionDto, { headers }),
       );
+      console.log(response.data);
       return response.data;
     } catch (error) {
       console.error('Error when calling Unipaas:');
