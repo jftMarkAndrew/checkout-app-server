@@ -1,10 +1,11 @@
 
 # UNIPaaS Web SDK Integration Example - SERVER SIDE
 
-Prerequisites:
-  - create .env file
-  - UNIPAAS_SANDBOX_URL - can be set to "https://sandbox.unipaas.com/platform" for the tests and to "https://api.unipaas.com/platform" for the live environment
-  - UNIPAAS_SANDBOX_PRIVATE_API_KEY - you need to register and acquire bearer key at https://portal.unipaas.com/developers/keys
+1. CLIENT SIDE - https://github.com/jftMarkAndrew/checkout-app-client
+2. Prerequisites:
+    - create .env file with:
+      - UNIPAAS_SANDBOX_URL - can be set to "https://sandbox.unipaas.com/platform" for the tests and to "https://api.unipaas.com/platform" for the live environment
+      - UNIPAAS_SANDBOX_PRIVATE_API_KEY - you need to register and acquire bearer key at https://portal.unipaas.com/developers/keys
 
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
