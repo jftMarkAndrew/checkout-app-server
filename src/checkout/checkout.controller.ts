@@ -6,7 +6,6 @@ import {
   Body,
   Get,
   Param,
-  Headers,
 } from '@nestjs/common';
 import { CheckoutService } from './checkout.service';
 import { CreateCheckoutSessionDto } from './dto/create-checkout-session.dto';
@@ -39,13 +38,14 @@ export class CheckoutController {
   }
 
   @Get(':id')
-  async fetchOrderInfo(
-    @Param('id') id: string,
-    @Headers('authorization') authorizationHeader: string,
-  ) {
-    if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
-      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+  async fetchPaymentInfo(@Param('id') id: string) {
+    try {
+      return await this.checkoutService.getOrderInfo(id);
+    } catch (error) {
+      throw new HttpException(
+        'Failed to retrieve payment info',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
-    return this.checkoutService.getOrderInfo(id);
   }
 }
