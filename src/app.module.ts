@@ -7,6 +7,7 @@ import { CheckoutModule } from './checkout/checkout.module';
 import { ConfigModule } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
 import { SettingsModule } from './settings/settings.module';
+import { ItemsModule } from './items/items.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { SettingsModule } from './settings/settings.module';
       timeout: 5000,
       maxRedirects: 5,
     }),
+    ItemsModule,
   ],
   controllers: [AppController, CheckoutController],
   providers: [AppService, CheckoutService],
