@@ -11,6 +11,7 @@ import { ItemsService } from './items.service';
 import { Item } from './item.model';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
+import { mockItems } from 'src/data/mock-items';
 
 @Controller('items')
 export class ItemsController {
@@ -18,7 +19,8 @@ export class ItemsController {
 
   @Get()
   findAll(): Item[] {
-    return this.itemsService.findAll();
+    return mockItems;
+    /* return this.itemsService.findAll(); */
   }
 
   @Get(':id')
