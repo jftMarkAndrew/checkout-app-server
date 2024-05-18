@@ -6,9 +6,11 @@ import { CheckoutController } from './checkout/checkout.controller';
 import { CheckoutModule } from './checkout/checkout.module';
 import { ConfigModule } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
+import { SettingsModule } from './settings/settings.module';
 
 @Module({
   imports: [
+    SettingsModule,
     CheckoutModule,
     ConfigModule.forRoot({
       isGlobal: true,
