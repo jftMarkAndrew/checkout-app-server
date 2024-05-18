@@ -3,7 +3,7 @@ import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 export class CreateCheckoutSessionDto {
   @IsNumber()
   @IsNotEmpty()
-  amount: number;
+  defaultAmount: number;
 
   @IsString()
   @IsNotEmpty()
