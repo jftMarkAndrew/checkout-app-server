@@ -13,7 +13,7 @@ export class CreateItemDto {
 
   @ApiProperty()
   @IsNumber()
-  defaultAmount: number;
+  amount: number;
 
   @ApiProperty({ required: false })
   @IsOptional()

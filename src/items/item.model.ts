@@ -2,7 +2,7 @@ export interface Item {
   id: number;
   name: string;
   description?: string;
-  defaultAmount: number;
+  amount: number;
   quantity?: number;
   fundingAmount?: number;
   platformFee?: number;
